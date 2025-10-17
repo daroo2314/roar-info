@@ -237,6 +237,23 @@
                 height: auto !important;
                 margin-bottom: 1px !important;
             }
+
+            .image-grid {
+                gap: 4px !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-top:0 !important;
+            }
+
+            .container {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            #did-chatbot-img {
+                max-width: 210px !important;
+                width: 70% !important;
+            }
             .banner-title {
                 font-size: 18px;
                 margin-bottom: 0 !important;
@@ -288,31 +305,145 @@
 
     <div class="container" style="padding-left:0; padding-right:0;">
         <!-- Three images in a row -->
-        <div class="image-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-left:0; padding-right:0; margin-top:0;">
-            <div class="image-item" onclick="openModal('img1')" style="display: flex; justify-content: center;">
+        <div class="image-grid" id="festivalImageGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-left:0; padding-right:0; margin-top:0;">
+            <div class="image-item" data-idx="0" style="display: flex; justify-content: center;">
                 <img id="img1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxyvBM%2FdJMb9YJ0wMo%2FAAAAAAAAAAAAAAAAAAAAAMcMYRGakq17Cb_dPx67j92PiwYYfLf6q0BxSgBA-y_r%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DJ7AM3x9FnRLSn14f%252BR0X%252FkP3H%252FU%253D" alt="Festival Info 1" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
             </div>
-            <div class="image-item" onclick="openModal('img2')" style="display: flex; justify-content: center;">
+            <div class="image-item" data-idx="1" style="display: flex; justify-content: center;">
                 <img id="img2" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb8GMFr%2FdJMb9MXaN5h%2FAAAAAAAAAAAAAAAAAAAAALW5HzYdrtNvcT4rXCrKQEmBe-pAGi1tZ7dnlNppADIO%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DWqv89Xbbbu3CcjWT5aEJyFXhfcE%253D" alt="Festival Info 2" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
             </div>
-            <div class="image-item" onclick="openModal('img3')" style="display: flex; justify-content: center;">
+            <div class="image-item" data-idx="2" style="display: flex; justify-content: center;">
                 <img id="img3" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdJuA69%2FdJMb8Y4kntf%2FAAAAAAAAAAAAAAAAAAAAAMdbilYYQfF8_NV5HqQZyTtafWHLVVBciLRWBG9oabiz%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DTtFJy%252F8djY1oo5pU8hiuGUQln70%253D" alt="Festival Info 3" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
             </div>
         </div>
-        <style>
-        @media (max-width: 768px) {
-            .container {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+
+        <!-- 모바일 슬라이드 모달 -->
+        <div id="mobileImageSliderModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.93); align-items:center; justify-content:center;">
+            <button id="slidePrevBtn" aria-label="이전" style="position:absolute; left:8px; top:50%; transform:translateY(-50%); z-index:101; background:rgba(0,0,0,0.3); border:none; color:#fff; font-size:2.5em; cursor:pointer; border-radius:100px; padding:0 16px 2px;">&#8592;</button>
+            <img id="mobileSliderImg" alt="slide image" style="max-width:96vw; max-height:80vh; margin:0 auto; display:block; border-radius: 10px; box-shadow:0 8px 32px 8px rgba(0,0,0,0.26); background:#222;"/>
+            <button id="slideNextBtn" aria-label="다음" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); z-index:101; background:rgba(0,0,0,0.3); border:none; color:#fff; font-size:2.5em; cursor:pointer; border-radius:100px; padding:0 16px 2px;">&#8594;</button>
+            <button id="slideCloseBtn" aria-label="닫기" style="position:absolute; top:18px; right:18px; background:rgba(32,32,32,0.5); border:none; color:#fff; font-size:2em; border-radius:100px; width:38px; height:38px; cursor:pointer;z-index:120;">&times;</button>
+        </div>
+        <script>
+        // 축제 정보 이미지(세개) 주소 배열
+        const festivalImages = [
+            {
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxyvBM%2FdJMb9YJ0wMo%2FAAAAAAAAAAAAAAAAAAAAAMcMYRGakq17Cb_dPx67j92PiwYYfLf6q0BxSgBA-y_r%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DJ7AM3x9FnRLSn14f%252BR0X%252FkP3H%252FU%253D",
+                alt: "Festival Info 1"
+            },
+            {
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb8GMFr%2FdJMb9MXaN5h%2FAAAAAAAAAAAAAAAAAAAAALW5HzYdrtNvcT4rXCrKQEmBe-pAGi1tZ7dnlNppADIO%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DWqv89Xbbbu3CcjWT5aEJyFXhfcE%253D",
+                alt: "Festival Info 2"
+            },
+            {
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdJuA69%2FdJMb8Y4kntf%2FAAAAAAAAAAAAAAAAAAAAAMdbilYYQfF8_NV5HqQZyTtafWHLVVBciLRWBG9oabiz%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1761922799%26allow_ip%3D%26allow_referer%3D%26signature%3DTtFJy%252F8djY1oo5pU8hiuGUQln70%253D",
+                alt: "Festival Info 3"
             }
-            .image-grid {
-                gap: 4px !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                margin-top:0 !important;
-            }
+        ];
+
+        function isMobileWidth() {
+            return window.innerWidth <= 768;
         }
-        </style>
+
+        // 모바일 슬라이드 모달 관련 변수
+        let currentSlideIdx = 0;
+        const sliderModal = document.getElementById('mobileImageSliderModal');
+        const sliderImg = document.getElementById('mobileSliderImg');
+        const prevBtn = document.getElementById('slidePrevBtn');
+        const nextBtn = document.getElementById('slideNextBtn');
+        const closeBtn = document.getElementById('slideCloseBtn');
+
+        function openMobileSlider(idx) {
+            currentSlideIdx = idx;
+            showSlide(idx);
+            sliderModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function showSlide(idx) {
+            sliderImg.src = festivalImages[idx].src;
+            sliderImg.alt = festivalImages[idx].alt;
+            // 포커스 trap & 버튼 visibility
+            prevBtn.style.visibility = (idx === 0) ? "hidden" : "visible";
+            nextBtn.style.visibility = (idx === festivalImages.length - 1) ? "hidden" : "visible";
+        }
+        prevBtn.onclick = function(e){ 
+            if(currentSlideIdx > 0) {
+                currentSlideIdx -= 1;
+                showSlide(currentSlideIdx);
+            }
+        };
+        nextBtn.onclick = function(e){
+            if(currentSlideIdx < festivalImages.length-1) {
+                currentSlideIdx += 1;
+                showSlide(currentSlideIdx);
+            }
+        };
+        closeBtn.onclick = function() {
+            sliderModal.style.display = "none";
+            document.body.style.overflow = "";
+        };
+
+        // 바깥 클릭 시 닫기 (배경)
+        sliderModal.addEventListener('click', function(e){
+            if (e.target === sliderModal) {
+                closeBtn.onclick();
+            }
+        });
+
+        // 키보드 좌우 next/prev
+        sliderModal.addEventListener('keydown', function(e) {
+            if (sliderModal.style.display !== "flex") return;
+            if ((e.key === "ArrowRight" || e.key === "Right") && currentSlideIdx < festivalImages.length-1) {
+                nextBtn.click();
+            }
+            if ((e.key === "ArrowLeft" || e.key === "Left") && currentSlideIdx > 0) {
+                prevBtn.click();
+            }
+            if (e.key === "Escape" || e.key === "Esc") {
+                closeBtn.click();
+            }
+        });
+
+        // 모바일에서 이미지 탭했을때만 슬라이더 오픈
+        document.querySelectorAll('#festivalImageGrid .image-item img').forEach(function(el, idx){
+            el.addEventListener('click', function(e) {
+                if (isMobileWidth()) {
+                    openMobileSlider(idx);
+                    // 포커스 trap
+                    setTimeout(function(){
+                        sliderModal.focus();
+                    }, 60);
+                    e.preventDefault();
+                } else {
+                    // 데스크탑에서는 기존 openModal(이미지 확대) 함수 사용(존재한다면)
+                    if (typeof openModal === 'function') {
+                        openModal(el.id);
+                    }
+                }
+            });
+        });
+
+        // 모바일에서 finger touch로 slide(좌우 swipe)
+        let touchStartX = 0, touchEndX = 0;
+        sliderImg.addEventListener('touchstart', e => {
+            if(e.touches.length === 1){
+                touchStartX = e.touches[0].clientX;
+            }
+        });
+        sliderImg.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].clientX;
+            if (touchStartX - touchEndX > 50 && currentSlideIdx < festivalImages.length-1) {
+                nextBtn.click();
+            } else if (touchEndX - touchStartX > 50 && currentSlideIdx > 0) {
+                prevBtn.click();
+            }
+        });
+
+        // 슬라이더 모달 탭 인덱스 (접근성)
+        sliderModal.tabIndex = 0;
+
+        </script>
 
         <!-- Map section -->
         <div class="map-section" style="display: flex; justify-content: center; margin-top: 32px;">
@@ -327,14 +458,6 @@
                 alt="Chatbot"
                 style="max-width:300px; width:100%; height:auto; display:block; margin:0 auto; border-radius:12px; cursor:pointer;"
             >
-            <style>
-            @media (max-width: 768px) {
-                #did-chatbot-img {
-                    max-width: 210px !important;  /* 300px * 0.7 */
-                    width: 70% !important;        /* For extra safety, 70% of standard width */
-                }
-            }
-            </style>
         </div>
         <script>
         // 모바일에서 이미지 클릭 시 챗봇 링크로 이동
