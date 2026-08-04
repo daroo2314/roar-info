@@ -307,7 +307,7 @@
         <!-- Three images in a row -->
         <div class="image-grid" id="festivalImageGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-left:0; padding-right:0; margin-top:0;">
             <div class="image-item" data-idx="0" style="display: flex; justify-content: center;">
-                <img id="img1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdJuA69%2FdJMb8Y4kntf%2FAAAAAAAAAAAAAAAAAAAAAMdbilYYQfF8_NV5HqQZyTtafWHLVVBciLRWBG9oabiz%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3DN0Eh%252FxSpyv9QRKEAGKE3HsPLlw0%253D" alt="Festival Info 1" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
+                <img id="img1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdm3uo9%2FdJMcahW6fsf%2FAAAAAAAAAAAAAAAAAAAAAJ_FxP4cJL9MUSShtqbKl1q-E7Ksr6KjP5btgXXhxqoa%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3DAtoe2nL2igOkMqs0MSTt3%252BokPOc%253D" alt="Festival Info 1" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
             </div>
             <div class="image-item" data-idx="1" style="display: flex; justify-content: center;">
                 <img id="img2" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb8GMFr%2FdJMb9MXaN5h%2FAAAAAAAAAAAAAAAAAAAAALW5HzYdrtNvcT4rXCrKQEmBe-pAGi1tZ7dnlNppADIO%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3DasaIO%252FM9qS8Pdy4yGTS3khUq5B4%253D" alt="Festival Info 2" style="max-width:400px; width:100%; height:auto; cursor:zoom-in;">
@@ -328,15 +328,15 @@
         // 축제 정보 이미지(세개) 주소 배열
         const festivalImages = [
             {
-                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxyvBM%2FdJMb9YJ0wMo%2FAAAAAAAAAAAAAAAAAAAAAMcMYRGakq17Cb_dPx67j92PiwYYfLf6q0BxSgBA-y_r%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrY8xv0r0f7UrMu93XdSSNrGOnS0%253D",
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdm3uo9%2FdJMcahW6fsf%2FAAAAAAAAAAAAAAAAAAAAAJ_FxP4cJL9MUSShtqbKl1q-E7Ksr6KjP5btgXXhxqoa%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3DAtoe2nL2igOkMqs0MSTt3%252BokPOc%253D",
                 alt: "Festival Info 1"
             },
             {
-                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb8GMFr%2FdJMb9MXaN5h%2FAAAAAAAAAAAAAAAAAAAAALW5HzYdrtNvcT4rXCrKQEmBe-pAGi1tZ7dnlNppADIO%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1767193199%26allow_ip%3D%26allow_referer%3D%26signature%3DFKT3j2Yns0uQqcks7cIO2qmhXT8%253D",
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb8GMFr%2FdJMb9MXaN5h%2FAAAAAAAAAAAAAAAAAAAAALW5HzYdrtNvcT4rXCrKQEmBe-pAGi1tZ7dnlNppADIO%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3DasaIO%252FM9qS8Pdy4yGTS3khUq5B4%253D",
                 alt: "Festival Info 2"
             },
             {
-                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdm3uo9%2FdJMcahW6fsf%2FAAAAAAAAAAAAAAAAAAAAAJ_FxP4cJL9MUSShtqbKl1q-E7Ksr6KjP5btgXXhxqoa%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dn98W%252FcQazHJbtNZp%252F7cnucG97pg%253D",
+                src: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxyvBM%2FdJMb9YJ0wMo%2FAAAAAAAAAAAAAAAAAAAAAMcMYRGakq17Cb_dPx67j92PiwYYfLf6q0BxSgBA-y_r%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1788188399%26allow_ip%3D%26allow_referer%3D%26signature%3Dm36W3yM%252FvgfS3yYxjE8W1QRTvAM%253D",
                 alt: "Festival Info 3"
             }
         ];
